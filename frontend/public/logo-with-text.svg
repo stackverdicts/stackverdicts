@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 600 150" xml:space="preserve">
+<defs>
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700&amp;display=swap');
+		.logo-text { font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 700; }
+	</style>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="558.92" y1="365.98" x2="685.01" y2="365.98">
+		<stop  offset="0" style="stop-color:#5B6CCD"/>
+		<stop  offset="1" style="stop-color:#41CDEC"/>
+	</linearGradient>
+	<linearGradient id="SVGID_00000090984192972774580670000008341781508973284799_" gradientUnits="userSpaceOnUse" x1="588.7316" y1="649.7162" x2="588.1155" y2="375.5194">
+		<stop  offset="0" style="stop-color:#47188C"/>
+		<stop  offset="1" style="stop-color:#7C37BB"/>
+	</linearGradient>
+	<linearGradient id="SVGID_00000158709373705163194360000008521127285731014795_" gradientUnits="userSpaceOnUse" x1="651.1949" y1="665.1233" x2="651.1949" y2="384.3879">
+		<stop  offset="0" style="stop-color:#5F3FC0"/>
+		<stop  offset="1" style="stop-color:#30EAE9"/>
+	</linearGradient>
+	<linearGradient id="SVGID_00000084517095332997793570000006260048967147123083_" gradientUnits="userSpaceOnUse" x1="438.4737" y1="426.1105" x2="565.3263" y2="426.1105">
+		<stop  offset="0" style="stop-color:#5B6CCD"/>
+		<stop  offset="1" style="stop-color:#41CDEC"/>
+	</linearGradient>
+	<linearGradient id="SVGID_00000141449178527128726260000016521754196549183163_" gradientUnits="userSpaceOnUse" x1="468.4413" y1="686.6334" x2="467.8843" y2="438.7621">
+		<stop  offset="0" style="stop-color:#47188C"/>
+		<stop  offset="1" style="stop-color:#7C37BB"/>
+	</linearGradient>
+	<linearGradient id="SVGID_00000040544677500319109380000005757025307737270159_" gradientUnits="userSpaceOnUse" x1="531.32" y1="654.1023" x2="531.32" y2="401.3134">
+		<stop  offset="0" style="stop-color:#5F3FC0"/>
+		<stop  offset="1" style="stop-color:#30EAE9"/>
+	</linearGradient>
+	<linearGradient id="SVGID_00000101798158905944208000000008261990756771408009_" gradientUnits="userSpaceOnUse" x1="316.1684" y1="488.2105" x2="441.4105" y2="488.2105">
+		<stop  offset="0" style="stop-color:#5B6CCD"/>
+		<stop  offset="1" style="stop-color:#41CDEC"/>
+	</linearGradient>
+	<linearGradient id="SVGID_00000060009691516079569420000018317901967832453293_" gradientUnits="userSpaceOnUse" x1="345.3553" y1="743.973" x2="344.7753" y2="485.8757">
+		<stop  offset="0" style="stop-color:#47188C"/>
+		<stop  offset="1" style="stop-color:#7C37BB"/>
+	</linearGradient>
+	<linearGradient id="SVGID_00000119828762706869184550000000498553163402591677_" gradientUnits="userSpaceOnUse" x1="407.4" y1="736.6783" x2="407.4" y2="507.699">
+		<stop  offset="0" style="stop-color:#5F3FC0"/>
+		<stop  offset="1" style="stop-color:#30EAE9"/>
+	</linearGradient>
+	<linearGradient id="SVGID_00000091708255868028671560000011946809045342109598_" gradientUnits="userSpaceOnUse" x1="620.4222" y1="299.1361" x2="716.4222" y2="191.0098">
+		<stop  offset="0" style="stop-color:#1F8A5F"/>
+		<stop  offset="1" style="stop-color:#4ADBA9"/>
+	</linearGradient>
+</defs>
+<g transform="translate(0, 0) scale(0.195)">
+	<!-- Three stacked boxes (main logo elements) -->
+	<g>
+		<path style="fill:url(#SVGID_1_);" d="M685.01,362.36l-67.06,27.01l-59.03-30l37.62-15.35l22.35,15.7c1.57,1.1,3.37,1.64,5.17,1.64
+			c2.44,0,4.87-1,6.63-2.91l14.57-15.86L685.01,362.36z"/>
+		<polygon style="fill:url(#SVGID_00000090984192972774580670000008341781508973284799_);" points="617.95,389.37 617.67,528.22
+			617.67,530.46 617.38,673.99 558.92,646.04 558.92,359.37 	"/>
+		<polygon style="fill:url(#SVGID_00000158709373705163194360000008521127285731014795_);" points="685.01,362.36 685.01,651.87
+			617.38,673.99 617.95,389.37 	"/>
+		<!-- Circuit pattern for top box -->
+		<circle style="fill:#2ADBE5;" cx="596.46" cy="440.02" r="4.57"/>
+		<circle style="fill:#2ADBE5;" cx="565.33" cy="474.52" r="4.06"/>
+		<circle style="fill:#2ADBE5;" cx="609.16" cy="540.13" r="4.5"/>
+		<circle style="fill:#2ADBE5;" cx="578.21" cy="549.47" r="3.32"/>
+		<polygon style="fill:#2ADBE5;" points="602.59,632.07 601.29,632.07 601.29,602.09 593.19,589.97 593.19,560.68 572.32,528 572.32,498.07 562.65,483.53 563.74,482.81 573.62,497.68 573.62,527.62 594.49,560.31 594.49,589.57 602.59,601.7"/>
+		<polygon style="fill:#2ADBE5;" points="611.73,573.8 610.43,573.8 610.43,562.02 579.39,515.2 579.39,480.24 574.15,477.15 574.82,476.03 580.69,479.5 580.69,514.8 611.73,561.62"/>
+		<polygon style="fill:#2ADBE5;" points="617.67,528.22 617.67,530.46 595.81,499.66 595.81,444.57 597.11,444.57 597.11,499.25"/>
+	</g>
+	<g>
+		<polygon style="fill:url(#SVGID_00000084517095332997793570000006260048967147123083_);" points="506.27,401.05 438.47,424.17
+			497.87,451.17 565.33,427.96 	"/>
+		<polygon style="fill:url(#SVGID_00000141449178527128726260000016521754196549183163_);" points="497.87,451.17 497.6,574.93
+			497.6,577.26 497.31,708.57 438.47,680.62 438.47,424.17 	"/>
+		<polygon style="fill:url(#SVGID_00000040544677500319109380000005757025307737270159_);" points="565.33,427.96 565.33,685.83
+			540.4,694.16 539.1,694.6 528.27,698.22 526.97,698.65 510.51,704.16 509.21,704.59 497.31,708.57 497.6,577.26 497.6,574.93
+			497.87,451.17 522.19,442.8 523.49,442.36 534.93,438.42 536.23,437.97 548.19,433.86 549.49,433.41 557.29,430.73 558.59,430.28
+			"/>
+		<!-- Circuit pattern for middle box -->
+		<circle style="fill:#2ADBE5;" cx="475.77" cy="485.21" r="4.54"/>
+		<circle style="fill:#2ADBE5;" cx="443.21" cy="519.52" r="5.06"/>
+		<circle style="fill:#2ADBE5;" cx="487.26" cy="583.66" r="4.4"/>
+		<circle style="fill:#2ADBE5;" cx="457.61" cy="593.75" r="3.03"/>
+		<circle style="fill:#2ADBE5;" cx="524.92" cy="548.51" r="3.3"/>
+		<circle style="fill:#2ADBE5;" cx="529.71" cy="535.44" r="2.94"/>
+		<circle style="fill:#2ADBE5;" cx="528.52" cy="502.04" r="3.69"/>
+		<circle style="fill:#2ADBE5;" cx="542.78" cy="530.27" r="2.46"/>
+		<polygon style="fill:#2ADBE5;" points="497.6,574.93 497.6,577.26 475.12,543.74 475.12,489.54 476.42,489.54 476.42,543.34"/>
+		<polygon style="fill:#2ADBE5;" points="484.46,580.22 466.47,553.59 466.47,512 467.77,512 467.77,553.19 485.53,579.5"/>
+		<polygon style="fill:#2ADBE5;" points="549.49,433.41 549.49,455.48 529.17,479 529.17,502.04 527.87,502.04 527.87,478.51 548.19,455 548.19,433.86"/>
+	</g>
+	<g>
+		<polygon style="fill:url(#SVGID_00000101798158905944208000000008261990756771408009_);" points="382.36,462.82 316.17,485.94
+			373.96,513.6 441.41,489.73 	"/>
+		<polygon style="fill:url(#SVGID_00000060009691516079569420000018317901967832453293_);" points="373.96,513.6 373.69,621.17
+			373.69,622.76 373.39,743.91 316.17,715.96 316.17,485.94 	"/>
+		<polygon style="fill:url(#SVGID_00000119828762706869184550000000498553163402591677_);" points="441.41,489.73 441.41,721.17
+			420.78,728.07 419.48,728.5 412.28,730.91 410.98,731.34 373.39,743.91 373.96,513.6 	"/>
+		<!-- Circuit pattern for bottom box -->
+		<circle style="fill:#2ADBE5;" cx="362.78" cy="574.39" r="4.38"/>
+		<circle style="fill:#2ADBE5;" cx="330.6" cy="647.94" r="2.31"/>
+		<circle style="fill:#2ADBE5;" cx="329.29" cy="561.82" r="2.81"/>
+		<circle style="fill:#2ADBE5;" cx="362.09" cy="606.83" r="4.37"/>
+		<circle style="fill:#2ADBE5;" cx="350.35" cy="695.1" r="4.31"/>
+		<circle style="fill:#2ADBE5;" cx="405.13" cy="597.35" r="5.01"/>
+		<circle style="fill:#2ADBE5;" cx="384.57" cy="718.92" r="5.2"/>
+		<polygon style="fill:#2ADBE5;" points="373.69,621.17 373.69,622.76 351,638.74 351,690.06 349.7,690.06 349.7,638.06"/>
+		<polygon style="fill:#2ADBE5;" points="333.87,647.94 332.57,647.94 332.63,611.76 362.13,586.44 362.13,578.53 363.43,578.53 363.43,587.04 333.93,612.36"/>
+		<polygon style="fill:#2ADBE5;" points="441.41,594.11 441.41,595.71 433.25,589.83 409.7,597.96 409.27,596.73 433.46,588.38"/>
+	</g>
+	<!-- Checkmark element -->
+	<polygon style="fill:#10b981;" points="574.61,265.77 546.06,296.21 553.26,302.53 582.13,271.55 "/>
+	<polygon style="fill:#D5FCF1;" points="553.26,302.53 554.34,303.38 582.32,273.41 623.56,304.11 723.92,194.62 723.92,192.35 623.4,302.19
+		582.13,271.55 "/>
+	<polygon style="fill:#35C491;" points="554.34,303.38 624.06,352.36 723.92,243.66 723.92,194.62 623.56,304.11 582.32,273.41 "/>
+	<polygon style="fill:url(#SVGID_00000091708255868028671560000011946809045342109598_);" points="614.74,295.76 716.08,186.19
+		723.92,192.35 623.4,302.19 "/>
+</g>
+
+<!-- StackVerdicts Text -->
+<text x="145" y="124" class="logo-text" style="font-size: 38px; fill: #1f2937;" dominant-baseline="auto">
+	<tspan style="fill: #111827;">Stack</tspan><tspan style="fill: #111827;">Verdicts</tspan>
+</text>
+</svg>
