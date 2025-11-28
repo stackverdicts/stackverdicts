@@ -1,0 +1,46 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            cd /var/www/stackverdicts
+
+            echo "=== Pulling latest changes ==="
+            git pull origin master
+
+            echo "=== Deploying Backend ==="
+            cd /var/www/stackverdicts/backend
+            npm install --production
+            npm install --save-dev typescript tsx @types/node
+            npm run build
+
+            echo "=== Running migrations ==="
+            npx tsx src/run-migrations.ts || echo "No new migrations"
+
+            echo "=== Deploying Frontend ==="
+            cd /var/www/stackverdicts/frontend
+            npm install
+            npm run build
+
+            echo "=== Restarting PM2 processes ==="
+            pm2 restart stackverdicts-backend
+            pm2 restart stackverdicts-frontend
+            pm2 save
+
+            echo "=== Deployment complete ==="
+            pm2 list
