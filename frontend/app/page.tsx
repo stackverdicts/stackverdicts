@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import EmailSignup from './components/EmailSignup';
 import AnimatedBackground from './components/AnimatedBackground';
 import VideoModal from './components/VideoModal';
 import { getResizedImageUrl } from './utils/image-utils';
@@ -126,7 +127,7 @@ export default function HomePage() {
               <p className="text-lg md:text-xl text-gray-100 mb-8 leading-relaxed drop-shadow-md">
                 Honest, in-depth reviews of the best developer tools, hosting platforms, and tech services to power your projects.
               </p>
-              <div className="flex justify-center gap-4">
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link
                   href="/blog"
                   className="inline-flex items-center justify-center bg-emerald-500 text-white px-8 py-3 hover:bg-emerald-600 transition-all shadow-lg hover:shadow-xl font-semibold text-lg"
@@ -268,7 +269,7 @@ export default function HomePage() {
                       <div className="flex items-center gap-4 mt-auto">
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="text-[#047857] hover:text-[#065f46] font-semibold text-lg flex items-center gap-2 group"
+                          className="text-gray-800 hover:text-gray-600 font-semibold text-lg flex items-center gap-2 group"
                         >
                           Read more
                           <svg
@@ -305,7 +306,7 @@ export default function HomePage() {
                 ) : (
                   <button
                     onClick={handleLoadMore}
-                    className="inline-block bg-indigo-900 text-white px-8 py-3 rounded hover:bg-indigo-800 transition-all shadow-md hover:shadow-lg font-semibold"
+                    className="inline-block bg-emerald-500 text-white px-8 py-3 rounded hover:bg-emerald-600 transition-all shadow-md hover:shadow-lg font-semibold"
                   >
                     Load More Articles
                   </button>
@@ -316,6 +317,7 @@ export default function HomePage() {
         </section>
       </main>
 
+      <EmailSignup />
       <Footer />
 
       {/* Video Modal */}

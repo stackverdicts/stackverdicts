@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import EmailSignup from '../components/EmailSignup';
 import AnimatedBackground from '../components/AnimatedBackground';
 import VideoModal from '../components/VideoModal';
 import CustomSelect from '../components/CustomSelect';
@@ -206,7 +207,7 @@ export default function BlogListPage() {
                     <div className="flex items-center gap-4 mt-auto">
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="text-[#047857] hover:text-[#065f46] font-semibold text-lg flex items-center gap-2 group"
+                        className="text-gray-800 hover:text-gray-600 font-semibold text-lg flex items-center gap-2 group"
                       >
                         Read more
                         <svg
@@ -233,6 +234,7 @@ export default function BlogListPage() {
         </section>
       </main>
 
+      <EmailSignup />
       <Footer />
 
       {/* Video Modal */}

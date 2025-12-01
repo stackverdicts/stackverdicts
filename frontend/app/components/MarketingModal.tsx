@@ -313,7 +313,7 @@ export default function MarketingModal() {
                     placeholder="Your Name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full border-2 border-indigo-600 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-colors"
                     required
                   />
                 </div>
@@ -324,7 +324,7 @@ export default function MarketingModal() {
                     placeholder="Your Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full border-2 border-indigo-600 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-colors"
                     required
                   />
                 </div>
@@ -335,7 +335,7 @@ export default function MarketingModal() {
                     id="consent"
                     checked={formData.consent}
                     onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                    className="mt-0.5 min-w-[24px] min-h-[24px] w-6 h-6 text-emerald-600 focus:ring-emerald-500 border-2 border-indigo-600 rounded cursor-pointer accent-emerald-600"
+                    className="mt-0.5 min-w-[24px] min-h-[24px] w-6 h-6 text-emerald-600 focus:ring-emerald-400 border border-gray-300 rounded cursor-pointer accent-emerald-600"
                   />
                   <label htmlFor="consent" className="text-sm text-gray-600 cursor-pointer">
                     I agree to receive marketing emails and updates. You can unsubscribe at any time.
