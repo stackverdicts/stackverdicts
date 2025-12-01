@@ -28,7 +28,7 @@ export default function Navigation() {
               <img
                 src="/logo-with-text.svg"
                 alt="StackVerdicts"
-                className="h-20 -mt-3.5 -ml-5 md:ml-0 md:h-16 md:-mt-3"
+                className="h-20 -mt-3.5 -ml-5 md:ml-0 md:h-24 md:-mt-5.5"
               />
             </Link>
 
@@ -46,12 +46,20 @@ export default function Navigation() {
               >
                 Blog
               </Link>
+              <a
+                href="https://www.youtube.com/@stackverdicts"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-800 hover:text-indigo-900 transition-colors font-medium"
+              >
+                Videos
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+              className="md:hidden p-2 rounded-md text-gray-800 hover:bg-gray-100 transition-colors"
               aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,12 +92,12 @@ export default function Navigation() {
               <img
                 src="/logo-with-text.svg"
                 alt="StackVerdicts"
-                className="h-16"
+                style={{ width: '230px' }}
               />
             </Link>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-md text-gray-800 hover:bg-gray-100 transition-colors mt-3"
               aria-label="Close menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

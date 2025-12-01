@@ -67,7 +67,7 @@ export default function EmailSignup() {
   }
 
   return (
-    <section className="bg-indigo-900 py-16">
+    <section className="bg-gradient-to-r from-indigo-950 via-purple-900 via-55% to-blue-800 py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -109,7 +109,7 @@ export default function EmailSignup() {
                 placeholder="First name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all sm:border-r-0"
+                className="flex-1 px-4 py-3 bg-white border border-white/20 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all sm:border-r sm:border-r-gray-300"
                 disabled={status === 'loading'}
               />
               <input
@@ -117,13 +117,13 @@ export default function EmailSignup() {
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all border-t-0 sm:border-t sm:border-r-0"
+                className="flex-1 px-4 py-3 bg-white border border-white/20 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all border-t-0 sm:border-t sm:border-r-0"
                 disabled={status === 'loading'}
               />
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {status === 'loading' ? (
                   <>

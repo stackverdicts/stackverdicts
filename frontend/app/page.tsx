@@ -116,7 +116,7 @@ export default function HomePage() {
           <AnimatedBackground />
 
           {/* Content */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-12 md:py-16 w-full">
+          <div className="relative z-10 max-w-7xl mx-auto px-16 sm:px-6 lg:px-16 py-12 md:py-16 w-full">
             <div className="text-center max-w-4xl mx-auto">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 leading-tight text-white drop-shadow-lg">
                 Developer Tools & Hosting{' '}
@@ -281,7 +281,7 @@ export default function HomePage() {
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              strokeWidth={2}
+                              strokeWidth={2.5}
                               d="M9 5l7 7-7 7"
                             />
                           </svg>
@@ -306,7 +306,7 @@ export default function HomePage() {
                 ) : (
                   <button
                     onClick={handleLoadMore}
-                    className="inline-block bg-emerald-500 text-white px-8 py-3 rounded hover:bg-emerald-600 transition-all shadow-md hover:shadow-lg font-semibold"
+                    className="inline-block bg-emerald-600 text-white px-8 py-3 hover:bg-emerald-500 transition-all shadow-md hover:shadow-lg font-semibold"
                   >
                     Load More Articles
                   </button>
