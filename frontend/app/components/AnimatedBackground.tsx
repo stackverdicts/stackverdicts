@@ -1,8 +1,14 @@
 'use client';
 
-export default function AnimatedBackground() {
+interface AnimatedBackgroundProps {
+  slow?: boolean;
+}
+
+export default function AnimatedBackground({ slow = false }: AnimatedBackgroundProps) {
+  const speedMultiplier = slow ? 2 : 1;
+
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className={`absolute inset-0 overflow-hidden ${slow ? 'slow-animation' : ''}`}>
       {/* Animated Gradient Background - Base Layer */}
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-gray-900 via-indigo-900 to-blue-900 animate-gradient-shift"></div>
 
@@ -82,17 +88,55 @@ export default function AnimatedBackground() {
         <div className="absolute top-[40%] left-[65%] w-2 h-2 bg-blue-400 rounded-full animate-data-flow-vertical-delay shadow-md shadow-blue-400/50"></div>
       </div>
 
-      {/* Floating Glow Orbs - Highest Layer */}
-      <div className="absolute inset-0 z-20 pointer-events-none">
+      {/* Floating Glow Orbs */}
+      <div className="absolute inset-0 z-[5] pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl animate-float-slow"></div>
         <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl animate-float-slower"></div>
         <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-emerald-500/15 rounded-full blur-3xl animate-float-medium"></div>
       </div>
 
       {/* Overlay for depth */}
-      <div className="absolute inset-0 z-30 bg-gradient-to-t from-gray-900/40 via-transparent to-transparent pointer-events-none"></div>
+      <div className="absolute inset-0 z-[5] bg-gradient-to-t from-gray-900/40 via-transparent to-transparent pointer-events-none"></div>
 
       <style jsx>{`
+        :global(.slow-animation) .animate-gradient-shift {
+          animation-duration: 30s !important;
+        }
+        :global(.slow-animation) .animate-float-slow {
+          animation-duration: 40s !important;
+        }
+        :global(.slow-animation) .animate-float-slower {
+          animation-duration: 50s !important;
+        }
+        :global(.slow-animation) .animate-float-medium {
+          animation-duration: 36s !important;
+        }
+        :global(.slow-animation) .animate-pulse-glow,
+        :global(.slow-animation) .animate-pulse-glow-delay {
+          animation-duration: 6s !important;
+        }
+        :global(.slow-animation) .animate-pulse-node,
+        :global(.slow-animation) .animate-pulse-node-delay-1,
+        :global(.slow-animation) .animate-pulse-node-delay-2,
+        :global(.slow-animation) .animate-pulse-node-delay-3 {
+          animation-duration: 4s !important;
+        }
+        :global(.slow-animation) .animate-pulse-node-center {
+          animation-duration: 5s !important;
+        }
+        :global(.slow-animation) .animate-data-flow-horizontal {
+          animation-duration: 16s !important;
+        }
+        :global(.slow-animation) .animate-data-flow-horizontal-delay {
+          animation-duration: 20s !important;
+        }
+        :global(.slow-animation) .animate-data-flow-vertical {
+          animation-duration: 14s !important;
+        }
+        :global(.slow-animation) .animate-data-flow-vertical-delay {
+          animation-duration: 18s !important;
+        }
+
         @keyframes gradient-shift {
           0%, 100% {
             background-position: 0% 50%;

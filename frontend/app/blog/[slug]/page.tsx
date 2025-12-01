@@ -133,10 +133,10 @@ export default function BlogPostPage() {
       {/* Back to Blog Link (above hero) */}
       {post.featured_image && (
         <div className="bg-white border-b border-gray-200">
-          <div className="max-w-6xl mx-auto px-6 md:px-8 py-4">
+          <div className="max-w-6xl mx-auto px-6 md:px-8 py-2">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="inline-flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-colors"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -150,7 +150,7 @@ export default function BlogPostPage() {
       <article className="min-h-screen">
         {/* Hero Section with Overlay */}
         {post.featured_image && (
-          <div className="w-full h-[70vh] md:h-[80vh] relative overflow-hidden">
+          <div className="w-full h-[50vh] md:h-[55vh] relative overflow-hidden">
             {/* Background Image */}
             <picture>
               <source
@@ -179,7 +179,7 @@ export default function BlogPostPage() {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="max-w-4xl mx-auto w-full px-6 md:px-8 text-center">
                 {/* Post Title */}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight drop-shadow-lg">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-white leading-tight drop-shadow-lg">
                   {post.title}
                 </h1>
 
@@ -194,26 +194,11 @@ export default function BlogPostPage() {
                   </time>
                 </div>
 
-                {/* Tags */}
-                {post.tags && post.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-8 justify-center">
-                    {post.tags.map((tag) => (
-                      <Link
-                        key={tag.id}
-                        href={`/blog/tag/${tag.slug}`}
-                        className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm hover:bg-white/30 transition-colors"
-                      >
-                        {tag.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-
                 {/* Watch Video Button */}
                 {post.youtube_video_id && (
                   <button
                     onClick={() => setIsVideoModalOpen(true)}
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-[#10b981] hover:bg-[#059669] text-white font-semibold transition-colors shadow-lg"
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-indigo-800 hover:bg-[#10b981] text-white font-semibold transition-colors shadow-lg rounded-[2px]"
                   >
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -234,7 +219,7 @@ export default function BlogPostPage() {
               {/* Back button */}
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 mb-8 transition-colors"
+                className="inline-flex items-center gap-2 text-gray-800 hover:text-gray-900 mb-6 transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -257,25 +242,11 @@ export default function BlogPostPage() {
                   </time>
                 </div>
 
-                {post.tags && post.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {post.tags.map((tag) => (
-                      <Link
-                        key={tag.id}
-                        href={`/blog/tag/${tag.slug}`}
-                        className="px-3 py-1 bg-indigo-100 text-indigo-800 text-sm rounded-sm hover:bg-indigo-200 transition-colors"
-                      >
-                        {tag.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-
                 {/* Watch Video Button */}
                 {post.youtube_video_id && (
                   <button
                     onClick={() => setIsVideoModalOpen(true)}
-                    className="mt-6 inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold rounded shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                    className="mt-6 inline-flex items-center gap-3 px-8 py-4 bg-indigo-800 hover:bg-[#10b981] text-white font-semibold transition-colors shadow-lg rounded-[2px]"
                   >
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" />
@@ -298,17 +269,18 @@ export default function BlogPostPage() {
 
           {/* Post Content */}
           <div
-            className="prose prose-lg md:prose-xl max-w-none
+            className="prose prose-base md:prose-lg max-w-none
               prose-headings:font-bold prose-headings:text-gray-900
-              prose-h1:text-4xl prose-h1:mb-6 prose-h1:mt-12
-              prose-h2:text-3xl prose-h2:mb-4 prose-h2:mt-10
-              prose-h3:text-2xl prose-h3:mb-3 prose-h3:mt-8
-              prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6
+              prose-h1:text-3xl prose-h1:mb-3 prose-h1:mt-8
+              prose-h2:text-2xl prose-h2:mb-2 prose-h2:mt-6
+              prose-h3:text-xl prose-h3:mb-1 prose-h3:mt-5
+              prose-p:text-gray-800 prose-p:leading-relaxed prose-p:mb-6
               prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:text-indigo-700 hover:prose-a:underline
               prose-strong:text-gray-900 prose-strong:font-semibold
-              prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
-              prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
-              prose-li:text-gray-700 prose-li:mb-2
+              prose-ul:my-4 prose-ul:list-disc prose-ul:pl-6
+              prose-ol:my-4 prose-ol:list-decimal prose-ol:pl-6
+              prose-li:text-gray-800 prose-li:my-0.5 prose-li:marker:text-indigo-900 prose-li:marker:font-semibold
+              [&_li:first-child]:mt-0
               prose-blockquote:border-l-4 prose-blockquote:border-indigo-600 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-700
               prose-code:text-indigo-600 prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5
               prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:p-6 prose-pre:overflow-x-auto

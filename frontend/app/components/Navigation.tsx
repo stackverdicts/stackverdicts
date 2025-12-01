@@ -9,13 +9,13 @@ export default function Navigation() {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-1">
+        <div className="flex justify-between items-center py-2">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img
               src="/logo-with-text.svg"
               alt="StackVerdicts"
-              className="h-28"
+              className="h-16 -mt-3"
             />
           </Link>
 
@@ -23,13 +23,13 @@ export default function Navigation() {
           <div className="hidden md:flex items-center space-x-8">
             <Link
               href="/"
-              className="text-gray-700 hover:text-indigo-600 transition-colors font-medium"
+              className="text-gray-800 hover:text-indigo-900 transition-colors font-medium"
             >
               Home
             </Link>
             <Link
               href="/blog"
-              className="text-gray-700 hover:text-indigo-600 transition-colors font-medium"
+              className="text-gray-800 hover:text-indigo-900 transition-colors font-medium"
             >
               Blog
             </Link>
@@ -60,14 +60,14 @@ export default function Navigation() {
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-gray-700 hover:text-indigo-600 transition-colors font-medium px-2 py-2"
+                className="text-gray-800 hover:text-indigo-900 transition-colors font-medium px-2 py-2"
               >
                 Home
               </Link>
               <Link
                 href="/blog"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-gray-700 hover:text-indigo-600 transition-colors font-medium px-2 py-2"
+                className="text-gray-800 hover:text-indigo-900 transition-colors font-medium px-2 py-2"
               >
                 Blog
               </Link>

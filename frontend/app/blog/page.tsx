@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import AnimatedBackground from '../components/AnimatedBackground';
 import VideoModal from '../components/VideoModal';
+import CustomSelect from '../components/CustomSelect';
 import { getResizedImageUrl } from '../utils/image-utils';
 
 interface BlogPost {
@@ -27,12 +28,15 @@ interface Tag {
 
 export default function BlogListPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [allTags, setAllTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState<string>('');
+  const [selectedTag, setSelectedTag] = useState<string>('all');
 
   useEffect(() => {
     loadPosts();
+    loadTags();
   }, []);
 
   async function loadPosts() {
@@ -47,20 +51,54 @@ export default function BlogListPage() {
     }
   }
 
+  async function loadTags() {
+    try {
+      const response = await fetch('http://localhost:3001/api/blog/tags/all');
+      const data = await response.json();
+      setAllTags(data.tags || []);
+    } catch (error) {
+      console.error('Failed to load tags:', error);
+    }
+  }
+
+  // Filter tags to only show those that have at least one post
+  const tagsWithPosts = useMemo(() => {
+    return allTags.filter(tag =>
+      posts.some(post => post.tags?.some(postTag => postTag.id === tag.id))
+    );
+  }, [allTags, posts]);
+
+  const filteredPosts = useMemo(() => {
+    let filtered = posts;
+
+    if (selectedTag !== 'all') {
+      filtered = posts.filter(post =>
+        post.tags?.some(tag => tag.id === selectedTag)
+      );
+    }
+
+    // Sort by date (newest first)
+    return [...filtered].sort((a, b) => {
+      const dateA = new Date(a.published_at).getTime();
+      const dateB = new Date(b.published_at).getTime();
+      return dateB - dateA;
+    });
+  }, [posts, selectedTag]);
+
   return (
     <>
       <Navigation />
 
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-[400px] md:min-h-[500px] flex items-center overflow-hidden">
+        <section className="relative min-h-[280px] md:min-h-[320px] flex items-center overflow-hidden">
           {/* Animated Background */}
           <AnimatedBackground />
 
           {/* Content */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 w-full">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 w-full">
             <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white drop-shadow-lg">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 leading-tight text-white drop-shadow-lg">
                 Blog & Resources
               </h1>
               <p className="text-xl md:text-2xl text-gray-100 mb-8 leading-relaxed drop-shadow-md">
@@ -73,6 +111,35 @@ export default function BlogListPage() {
         {/* Blog Posts Section */}
         <section className="bg-gray-50 py-16 md:py-20">
           <div className="max-w-6xl mx-auto px-4">
+            {/* Filter Controls */}
+            {!loading && posts.length > 0 && (
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+                {/* Tag Dropdown Filter */}
+                <CustomSelect
+                  options={[
+                    { value: 'all', label: 'All Topics' },
+                    ...tagsWithPosts.map(tag => ({ value: tag.id, label: tag.name }))
+                  ]}
+                  value={selectedTag}
+                  onChange={(value) => setSelectedTag(value)}
+                  placeholder="Filter by topic"
+                />
+
+                {/* Results count */}
+                <div className="text-sm text-gray-800">
+                  Showing {filteredPosts.length} of {posts.length} articles
+                  {selectedTag !== 'all' && (
+                    <button
+                      onClick={() => setSelectedTag('all')}
+                      className="ml-2 text-indigo-900 hover:text-indigo-700 font-medium"
+                    >
+                      Clear filter
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
             {loading ? (
             <div className="text-center py-12">
               <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent"></div>
@@ -82,10 +149,20 @@ export default function BlogListPage() {
             <div className="text-center py-12">
               <p className="text-gray-600">No posts published yet.</p>
             </div>
+          ) : filteredPosts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-600 mb-4">No articles found with the selected filter.</p>
+              <button
+                onClick={() => setSelectedTag('all')}
+                className="text-indigo-900 hover:text-indigo-700 font-medium"
+              >
+                Show all articles
+              </button>
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <article key={post.id} className="bg-white rounded shadow-md overflow-hidden hover:shadow-xl transition-all group">
+              {filteredPosts.map((post) => (
+                <article key={post.id} className="bg-white rounded shadow-md overflow-hidden hover:shadow-xl transition-all group flex flex-col">
                   {post.featured_image && (
                     <Link href={`/blog/${post.slug}`} className="block h-48 overflow-hidden">
                       <picture>
@@ -102,52 +179,38 @@ export default function BlogListPage() {
                     </Link>
                   )}
 
-                  <div className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                  <div className="p-6 flex flex-col flex-1">
+                    <h2 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="hover:text-indigo-600 transition-colors"
+                        className="hover:text-indigo-900 transition-colors"
                       >
                         {post.title}
                       </Link>
                     </h2>
 
                     {post.excerpt && (
-                      <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+                      <p className="text-gray-800 mb-4 line-clamp-3">{post.excerpt}</p>
                     )}
 
-                    <div className="flex items-center justify-between text-sm">
-                      <time className="text-gray-500">
+                    <div className="text-sm mb-4">
+                      <time className="text-gray-800">
                         {new Date(post.published_at).toLocaleDateString('en-US', {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric',
                         })}
                       </time>
-
-                      {post.tags && post.tags.length > 0 && (
-                        <div className="flex gap-2">
-                          {post.tags.slice(0, 2).map((tag) => (
-                            <Link
-                              key={tag.id}
-                              href={`/blog/tag/${tag.slug}`}
-                              className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-sm text-xs hover:bg-indigo-200 transition-colors"
-                            >
-                              {tag.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
                     </div>
 
-                    <div className="flex items-center justify-between mt-4">
+                    <div className="flex items-center gap-4 mt-auto">
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1 group"
+                        className="text-[#047857] hover:text-[#065f46] font-semibold text-lg flex items-center gap-2 group"
                       >
                         Read more
                         <svg
-                          className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                          className="w-5 h-5 translate-y-[1px] group-hover:translate-x-1 transition-transform"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -160,22 +223,6 @@ export default function BlogListPage() {
                           />
                         </svg>
                       </Link>
-
-                      {post.youtube_video_id && (
-                        <button
-                          onClick={() => {
-                            setSelectedVideoId(post.youtube_video_id!);
-                            setVideoModalOpen(true);
-                          }}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#10b981] hover:bg-[#059669] text-white text-sm font-medium transition-colors rounded-sm"
-                          title="Watch video"
-                        >
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                          </svg>
-                          Video
-                        </button>
-                      )}
                     </div>
                   </div>
                 </article>

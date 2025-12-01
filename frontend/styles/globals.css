@@ -347,3 +347,59 @@ pre code {
     font-size: 1.375rem;  /* 22px for very comfortable reading */
   }
 }
+
+/* ============================================
+   BLOG CONTENT LIST STYLES
+   ============================================ */
+
+.article-content ul,
+.blog-post ul,
+.prose ul {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.article-content ul li,
+.blog-post ul li,
+.prose ul li {
+  position: relative;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.article-content ul li::before,
+.blog-post ul li::before,
+.prose ul li::before {
+  content: "•";
+  position: absolute;
+  left: -1rem;
+  color: var(--brand-primary, #312e81); /* indigo-900 */
+  font-weight: bold;
+}
+
+.article-content ol,
+.blog-post ol,
+.prose ol {
+  list-style: none;
+  padding-left: 1.5rem;
+  counter-reset: list-counter;
+}
+
+.article-content ol li,
+.blog-post ol li,
+.prose ol li {
+  position: relative;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  counter-increment: list-counter;
+}
+
+.article-content ol li::before,
+.blog-post ol li::before,
+.prose ol li::before {
+  content: counter(list-counter) ".";
+  position: absolute;
+  left: -1.5rem;
+  color: var(--brand-primary, #312e81); /* indigo-900 */
+  font-weight: 600;
+}
