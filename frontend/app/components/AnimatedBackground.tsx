@@ -10,7 +10,7 @@ export default function AnimatedBackground({ slow = false }: AnimatedBackgroundP
   return (
     <div className={`absolute inset-0 overflow-hidden ${slow ? 'slow-animation' : ''}`}>
       {/* Animated Gradient Background - Base Layer */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-gray-900 via-indigo-900 to-blue-900 animate-gradient-shift"></div>
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-gray-950 via-indigo-950 to-blue-950 animate-gradient-shift"></div>
 
       {/* Circuit Board Pattern - Above Gradient */}
       <div className="absolute inset-0 z-10">

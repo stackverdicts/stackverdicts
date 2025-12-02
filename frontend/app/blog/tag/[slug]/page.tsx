@@ -110,7 +110,7 @@ export default function TagArchivePage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
-              <article key={post.id} className="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition-shadow">
+              <article key={post.id} className="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition-shadow group">
                 {post.featured_image && (
                   <div className="h-48 overflow-hidden">
                     <picture>
@@ -121,7 +121,7 @@ export default function TagArchivePage() {
                       <img
                         src={getResizedImageUrl(post.featured_image, 'card-sm')}
                         alt={post.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </picture>
                   </div>
@@ -131,7 +131,7 @@ export default function TagArchivePage() {
                   <h2 className="text-xl font-bold mb-2">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="hover:text-indigo-600 transition-colors"
+                      className="hover:underline decoration-2 underline-offset-2 transition-all"
                     >
                       {post.title}
                     </Link>
@@ -141,35 +141,24 @@ export default function TagArchivePage() {
                     <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
                   )}
 
-                  <div className="flex items-center justify-between text-sm">
-                    <time className="text-gray-500">
-                      {new Date(post.published_at).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </time>
-
-                    {post.tags && post.tags.length > 0 && (
-                      <div className="flex gap-2">
-                        {post.tags.slice(0, 2).map((tag) => (
-                          <Link
-                            key={tag.id}
-                            href={`/blog/tag/${tag.slug}`}
-                            className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded text-xs hover:bg-blue-200 transition-colors"
-                          >
-                            {tag.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="inline-block mt-4 text-indigo-600 hover:text-indigo-800 font-medium"
+                    className="text-gray-800 group-hover:text-emerald-600 font-medium flex items-center gap-2 mt-4 transition-colors"
                   >
-                    Read more →
+                    Read more
+                    <svg
+                      className="w-5 h-5 translate-y-[1px] group-hover:translate-x-1 group-hover:text-emerald-600 transition-all"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
                   </Link>
                 </div>
               </article>

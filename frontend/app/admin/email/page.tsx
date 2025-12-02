@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 // ========== INTERFACES ==========
 
@@ -59,13 +60,6 @@ interface Subscriber {
   created_at: string;
 }
 
-interface Product {
-  id: string;
-  name: string;
-  category: string;
-  commission_value: number;
-}
-
 // ========== COMPONENT ==========
 
 export default function EmailMarketingPage() {
@@ -74,19 +68,7 @@ export default function EmailMarketingPage() {
   const [sequences, setSequences] = useState<EmailSequence[]>([]);
   const [campaigns, setCampaigns] = useState<EmailCampaign[]>([]);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [generating, setGenerating] = useState(false);
-  const [showGenerateModal, setShowGenerateModal] = useState(false);
-  const [generateType, setGenerateType] = useState<'template' | 'sequence'>('sequence');
-
-  // Form state
-  const [selectedProductId, setSelectedProductId] = useState('');
-  const [sequenceName, setSequenceName] = useState('');
-  const [purpose, setPurpose] = useState('');
-  const [numberOfEmails, setNumberOfEmails] = useState(5);
-  const [daysBetweenEmails, setDaysBetweenEmails] = useState(3);
-  const [tone, setTone] = useState('professional');
 
   useEffect(() => {
     loadData();
@@ -100,7 +82,6 @@ export default function EmailMarketingPage() {
         loadSequences(),
         loadCampaigns(),
         loadSubscribers(),
-        loadProducts(),
       ]);
     } catch (error) {
       console.error('Failed to load email data:', error);
@@ -133,60 +114,6 @@ export default function EmailMarketingPage() {
     setSubscribers(data.subscribers || []);
   }
 
-  async function loadProducts() {
-    const response = await fetch('http://localhost:3001/api/products?active_only=true&limit=100');
-    const data = await response.json();
-    setProducts(data.products || []);
-  }
-
-  async function handleGenerateSequence() {
-    if (!selectedProductId || !sequenceName || !purpose) {
-      alert('Please fill in all required fields');
-      return;
-    }
-
-    const selectedProduct = products.find(p => p.id === selectedProductId);
-    if (!selectedProduct) return;
-
-    setGenerating(true);
-    try {
-      const response = await fetch('http://localhost:3001/api/email/sequences/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sequenceName,
-          productName: selectedProduct.name,
-          productId: selectedProductId,
-          purpose,
-          numberOfEmails,
-          daysBetweenEmails,
-          tone,
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to generate sequence');
-      }
-
-      const data = await response.json();
-      alert(`Email sequence "${sequenceName}" generated with ${data.sequence.steps.length} emails!`);
-
-      // Reset form
-      setShowGenerateModal(false);
-      setSequenceName('');
-      setPurpose('');
-
-      // Reload sequences
-      loadSequences();
-    } catch (error) {
-      console.error('Failed to generate sequence:', error);
-      alert(`Failed to generate sequence: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    } finally {
-      setGenerating(false);
-    }
-  }
-
   function getStatusColor(status: string): string {
     const colors: Record<string, string> = {
       active: 'bg-green-100 text-green-700',
@@ -198,6 +125,17 @@ export default function EmailMarketingPage() {
       unsubscribed: 'bg-red-100 text-red-700',
     };
     return colors[status] || 'bg-gray-100 text-gray-700';
+  }
+
+  function formatTriggerType(trigger: string): string {
+    const labels: Record<string, string> = {
+      manual: 'Manual',
+      lead_capture: 'Lead Capture',
+      tag_added: 'Tag Added',
+      purchase: 'After Purchase',
+      abandoned_cart: 'Abandoned Cart',
+    };
+    return labels[trigger] || trigger;
   }
 
   if (loading && !stats) {
@@ -220,16 +158,18 @@ export default function EmailMarketingPage() {
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Email Marketing</h1>
               <p className="text-gray-500 mt-1">
-                AI-powered email campaigns and automation sequences
+                Manage email sequences and campaigns
               </p>
             </div>
-            <button
-              onClick={() => setShowGenerateModal(true)}
+            <Link
+              href="/admin/email/sequences/new"
               className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center space-x-2"
             >
-              <span>✨</span>
-              <span>Generate Sequence</span>
-            </button>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              <span>Create Sequence</span>
+            </Link>
           </div>
         </div>
       </header>
@@ -274,24 +214,30 @@ export default function EmailMarketingPage() {
           <div className="p-6 border-b border-gray-200">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900">Email Sequences</h2>
-              <button
-                onClick={() => {
-                  setGenerateType('sequence');
-                  setShowGenerateModal(true);
-                }}
-                className="text-indigo-600 hover:text-blue-700 text-sm font-medium"
+              <Link
+                href="/admin/email/sequences/new"
+                className="text-indigo-600 hover:text-indigo-700 text-sm font-medium"
               >
                 + New Sequence
-              </button>
+              </Link>
             </div>
           </div>
           <div className="divide-y divide-gray-200">
             {sequences.length === 0 ? (
               <div className="p-8 text-center text-gray-500">
-                No email sequences yet. Generate your first automated sequence!
+                <svg className="w-12 h-12 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <p className="mb-4">No email sequences yet</p>
+                <Link
+                  href="/admin/email/sequences/new"
+                  className="text-indigo-600 hover:text-indigo-700 font-medium"
+                >
+                  Create your first sequence
+                </Link>
               </div>
             ) : (
-              sequences.slice(0, 5).map((sequence) => (
+              sequences.map((sequence) => (
                 <div key={sequence.id} className="p-6 hover:bg-gray-50">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
@@ -307,14 +253,15 @@ export default function EmailMarketingPage() {
                       <div className="flex items-center space-x-4 text-sm text-gray-500">
                         <span>{sequence.total_enrolled} enrolled</span>
                         <span>•</span>
-                        <span className="capitalize">{sequence.trigger_type.replace('_', ' ')}</span>
+                        <span>{formatTriggerType(sequence.trigger_type)}</span>
                       </div>
                     </div>
-                    <button
-                      className="px-4 py-2 text-sm text-indigo-600 hover:bg-blue-50 rounded-lg"
+                    <Link
+                      href={`/admin/email/sequences/${sequence.id}`}
+                      className="px-4 py-2 text-sm text-indigo-600 hover:bg-indigo-50 rounded-lg font-medium"
                     >
-                      View Details
-                    </button>
+                      Edit
+                    </Link>
                   </div>
                 </div>
               ))
@@ -327,7 +274,7 @@ export default function EmailMarketingPage() {
           <div className="p-6 border-b border-gray-200">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900">Recent Campaigns</h2>
-              <button className="text-indigo-600 hover:text-blue-700 text-sm font-medium">
+              <button className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
                 View All
               </button>
             </div>
@@ -368,7 +315,7 @@ export default function EmailMarketingPage() {
           <div className="p-6 border-b border-gray-200">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900">Recent Subscribers</h2>
-              <button className="text-indigo-600 hover:text-blue-700 text-sm font-medium">
+              <button className="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
                 Manage Subscribers
               </button>
             </div>
@@ -428,145 +375,6 @@ export default function EmailMarketingPage() {
           </div>
         </div>
       </main>
-
-      {/* Generate Sequence Modal */}
-      {showGenerateModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900">Generate Email Sequence</h2>
-              <p className="text-gray-500 mt-1">AI will create a complete drip sequence</p>
-            </div>
-
-            <div className="p-6 space-y-6">
-              {/* Product Selection */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Select Product *
-                </label>
-                <select
-                  value={selectedProductId}
-                  onChange={(e) => setSelectedProductId(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                  required
-                >
-                  <option value="">Choose a product...</option>
-                  {products.map((product) => (
-                    <option key={product.id} value={product.id}>
-                      {product.name} ({product.category}) - ${product.commission_value || 0} commission
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Sequence Name */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Sequence Name *
-                </label>
-                <input
-                  type="text"
-                  value={sequenceName}
-                  onChange={(e) => setSequenceName(e.target.value)}
-                  placeholder="e.g., Welcome Series, Product Launch Sequence"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                  required
-                />
-              </div>
-
-              {/* Purpose */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Purpose *
-                </label>
-                <textarea
-                  value={purpose}
-                  onChange={(e) => setPurpose(e.target.value)}
-                  placeholder="Describe the goal of this email sequence..."
-                  rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                  required
-                />
-              </div>
-
-              {/* Number of Emails */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Number of Emails
-                  </label>
-                  <input
-                    type="number"
-                    value={numberOfEmails}
-                    onChange={(e) => setNumberOfEmails(parseInt(e.target.value))}
-                    min="2"
-                    max="10"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Days Between Emails
-                  </label>
-                  <input
-                    type="number"
-                    value={daysBetweenEmails}
-                    onChange={(e) => setDaysBetweenEmails(parseInt(e.target.value))}
-                    min="1"
-                    max="30"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                  />
-                </div>
-              </div>
-
-              {/* Tone */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Writing Tone
-                </label>
-                <select
-                  value={tone}
-                  onChange={(e) => setTone(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                >
-                  <option value="professional">Professional</option>
-                  <option value="casual">Casual</option>
-                  <option value="enthusiastic">Enthusiastic</option>
-                  <option value="friendly">Friendly</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="p-6 border-t border-gray-200 flex justify-end space-x-3">
-              <button
-                onClick={() => setShowGenerateModal(false)}
-                className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-                disabled={generating}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleGenerateSequence}
-                disabled={generating || !selectedProductId || !sequenceName || !purpose}
-                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-              >
-                {generating ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    <span>Generating...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>✨</span>
-                    <span>Generate Sequence</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -116,27 +116,32 @@ export default function BlogListPage() {
             {!loading && posts.length > 0 && (
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 {/* Tag Dropdown Filter */}
-                <CustomSelect
-                  options={[
-                    { value: 'all', label: 'All Topics' },
-                    ...tagsWithPosts.map(tag => ({ value: tag.id, label: tag.name }))
-                  ]}
-                  value={selectedTag}
-                  onChange={(value) => setSelectedTag(value)}
-                  placeholder="Filter by topic"
-                />
+                <div className="flex items-center gap-3">
+                  <CustomSelect
+                    options={[
+                      { value: 'all', label: 'All Topics' },
+                      ...tagsWithPosts.map(tag => ({ value: tag.id, label: tag.name }))
+                    ]}
+                    value={selectedTag}
+                    onChange={(value) => setSelectedTag(value)}
+                    placeholder="Filter by topic"
+                  />
+                  {selectedTag !== 'all' && (
+                    <button
+                      onClick={() => setSelectedTag('all')}
+                      className="inline-flex items-center gap-1.5 text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      Clear
+                    </button>
+                  )}
+                </div>
 
                 {/* Results count */}
                 <div className="text-sm text-gray-800">
                   Showing {filteredPosts.length} of {posts.length} articles
-                  {selectedTag !== 'all' && (
-                    <button
-                      onClick={() => setSelectedTag('all')}
-                      className="ml-2 text-indigo-900 hover:text-indigo-700 font-medium"
-                    >
-                      Clear filter
-                    </button>
-                  )}
                 </div>
               </div>
             )}
@@ -184,7 +189,7 @@ export default function BlogListPage() {
                     <h2 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="hover:text-indigo-900 transition-colors"
+                        className="hover:underline decoration-2 underline-offset-2 transition-all"
                       >
                         {post.title}
                       </Link>
@@ -194,24 +199,14 @@ export default function BlogListPage() {
                       <p className="text-gray-800 mb-4 line-clamp-3">{post.excerpt}</p>
                     )}
 
-                    <div className="text-sm mb-4">
-                      <time className="text-gray-800">
-                        {new Date(post.published_at).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
-                      </time>
-                    </div>
-
                     <div className="flex items-center gap-4 mt-auto">
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="text-gray-800 hover:text-gray-600 font-semibold text-lg flex items-center gap-2 group"
+                        className="text-gray-800 group-hover:text-emerald-600 font-semibold text-lg flex items-center gap-2 transition-colors"
                       >
                         Read more
                         <svg
-                          className="w-5 h-5 translate-y-[1px] group-hover:translate-x-1 transition-transform"
+                          className="w-5 h-5 translate-y-[1px] group-hover:translate-x-1 group-hover:text-emerald-600 transition-all"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"

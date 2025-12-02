@@ -3,8 +3,8 @@
 	 viewBox="0 0 600 150" xml:space="preserve">
 <defs>
 	<style type="text/css">
-		@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700&amp;display=swap');
-		.logo-text { font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 700; }
+		@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600&amp;display=swap');
+		.logo-text { font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; }
 	</style>
 	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="558.92" y1="365.98" x2="685.01" y2="365.98">
 		<stop  offset="0" style="stop-color:#5B6CCD"/>

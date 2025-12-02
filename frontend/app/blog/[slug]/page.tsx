@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/Footer';
+import EmailSignup from '../../components/EmailSignup';
 import VideoModal from '../../components/VideoModal';
 import { getResizedImageUrl } from '../../utils/image-utils';
 
@@ -138,10 +139,10 @@ export default function BlogPostPage() {
               href="/blog"
               className="inline-flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
               </svg>
-              Back to Blog
+              <span>Back to Blog</span>
             </Link>
           </div>
         </div>
@@ -150,7 +151,7 @@ export default function BlogPostPage() {
       <article className="min-h-screen">
         {/* Hero Section with Overlay */}
         {post.featured_image && (
-          <div className="w-full h-[50vh] md:h-[55vh] relative overflow-hidden">
+          <div className="w-full h-[28vh] md:h-[32vh] relative overflow-hidden">
             {/* Background Image */}
             <picture>
               <source
@@ -179,13 +180,13 @@ export default function BlogPostPage() {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="max-w-4xl mx-auto w-full px-6 md:px-8 text-center">
                 {/* Post Title */}
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-white leading-tight drop-shadow-lg">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white leading-tight drop-shadow-lg">
                   {post.title}
                 </h1>
 
                 {/* Meta Info */}
-                <div className="flex items-center justify-center gap-4 text-white/90 mb-6">
-                  <time className="text-lg">
+                <div className="flex items-center justify-center gap-4 text-white/90 mb-4">
+                  <time className="text-sm">
                     {new Date(post.published_at).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
@@ -258,15 +259,6 @@ export default function BlogPostPage() {
             </>
           )}
 
-          {/* Excerpt (for posts with featured image) */}
-          {post.featured_image && post.excerpt && (
-            <div className="mb-12">
-              <p className="text-xl md:text-2xl text-gray-700 leading-relaxed border-l-4 border-indigo-600 pl-6 py-2">
-                {post.excerpt}
-              </p>
-            </div>
-          )}
-
           {/* Post Content */}
           <div
             className="prose prose-base md:prose-lg max-w-none
@@ -279,7 +271,7 @@ export default function BlogPostPage() {
               prose-strong:text-gray-900 prose-strong:font-semibold
               prose-ul:my-4 prose-ul:list-disc prose-ul:pl-6
               prose-ol:my-4 prose-ol:list-decimal prose-ol:pl-6
-              prose-li:text-gray-800 prose-li:my-0.5 prose-li:marker:text-indigo-900 prose-li:marker:font-semibold
+              prose-li:text-gray-800 prose-li:my-0.5 prose-li:marker:text-emerald-600 prose-li:marker:font-semibold
               [&_li:first-child]:mt-0
               prose-blockquote:border-l-4 prose-blockquote:border-indigo-600 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-700
               prose-code:text-indigo-600 prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5
@@ -288,27 +280,10 @@ export default function BlogPostPage() {
           >
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
-
-          {/* Tags at bottom */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="mt-16 pt-8 border-t border-gray-200">
-              <h3 className="text-lg font-semibold mb-4 text-gray-900">Related Topics</h3>
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <Link
-                    key={tag.id}
-                    href={`/blog/tag/${tag.slug}`}
-                    className="px-4 py-2 bg-gray-100 text-gray-800 rounded-sm hover:bg-gray-200 transition-colors"
-                  >
-                    {tag.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </article>
 
+      <EmailSignup />
       <Footer />
 
       {/* Video Modal */}

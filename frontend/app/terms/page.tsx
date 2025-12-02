@@ -1,105 +1,115 @@
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
+import EmailSignup from '../components/EmailSignup';
+import AnimatedBackground from '../components/AnimatedBackground';
+
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">Terms of Service</h1>
+    <>
+      <Navigation />
 
-        <div className="bg-white rounded-lg shadow p-8 space-y-6">
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Acceptance of Terms</h2>
-            <p className="text-gray-700 leading-relaxed">
-              By accessing and using this service, you accept and agree to be bound by the terms
-              and provision of this agreement. If you do not agree to these terms, please do not
-              use this service.
+      <main>
+        {/* Hero Section */}
+        <section className="relative min-h-[200px] md:min-h-[240px] flex items-center overflow-hidden">
+          <AnimatedBackground />
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 w-full">
+            <div className="text-center max-w-4xl mx-auto">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight text-white drop-shadow-lg">
+                Terms of Service
+              </h1>
+              <p className="text-lg md:text-xl text-gray-100 leading-relaxed drop-shadow-md">
+                Terms and conditions for using StackVerdicts.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Content Section */}
+        <div className="max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-16">
+          <div
+            className="prose prose-base md:prose-lg max-w-none
+              prose-headings:font-bold prose-headings:text-gray-900
+              prose-h2:text-2xl prose-h2:mb-2 prose-h2:mt-8
+              prose-h3:text-xl prose-h3:mb-1 prose-h3:mt-5
+              prose-p:text-gray-800 prose-p:leading-relaxed prose-p:mb-6
+              prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:text-indigo-700 hover:prose-a:underline
+              prose-strong:text-gray-900 prose-strong:font-semibold
+              prose-ul:my-4 prose-ul:list-disc prose-ul:pl-6
+              prose-ol:my-4 prose-ol:list-decimal prose-ol:pl-6
+              prose-li:text-gray-800 prose-li:my-0.5 prose-li:marker:text-emerald-600 prose-li:marker:font-semibold
+              [&_li:first-child]:mt-0"
+          >
+            <h2>Agreement to Terms</h2>
+            <p>
+              By accessing StackVerdicts, you agree to these Terms of Service. If you do not agree,
+              please do not use this website.
             </p>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Use License</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Permission is granted to temporarily use this service for personal, non-commercial
-              transitory viewing only. This is the grant of a license, not a transfer of title,
-              and under this license you may not:
+            <h2>Use of Content</h2>
+            <p>
+              All content on this website, including articles, videos, and graphics, is for informational
+              purposes only. You may view and share our content for personal, non-commercial use. You may
+              not reproduce, distribute, or republish our content without permission.
             </p>
-            <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4">
-              <li>Modify or copy the materials</li>
-              <li>Use the materials for any commercial purpose or public display</li>
-              <li>Attempt to decompile or reverse engineer any software</li>
-              <li>Remove any copyright or proprietary notations from the materials</li>
-              <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
-            </ul>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Disclaimer</h2>
-            <p className="text-gray-700 leading-relaxed">
-              The materials on this service are provided on an 'as is' basis. We make no warranties,
-              expressed or implied, and hereby disclaim and negate all other warranties including,
-              without limitation, implied warranties or conditions of merchantability, fitness for
-              a particular purpose, or non-infringement of intellectual property.
+            <h2>Affiliate Disclosure</h2>
+            <p>
+              StackVerdicts contains affiliate links. When you click these links and make a purchase, we
+              may earn a commission at no additional cost to you. This helps support our content. Our
+              opinions and recommendations are our own and are not influenced by affiliate relationships.
             </p>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Limitations</h2>
-            <p className="text-gray-700 leading-relaxed">
-              In no event shall we or our suppliers be liable for any damages (including, without
-              limitation, damages for loss of data or profit, or due to business interruption)
-              arising out of the use or inability to use the materials on this service.
+            <h2>Disclaimer</h2>
+            <p>
+              Content is provided "as is" without warranties of any kind. We strive for accuracy but do
+              not guarantee that all information is complete, current, or error-free. Product features,
+              prices, and availability may change. Always verify information with the product provider
+              before making purchasing decisions.
             </p>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Accuracy of Materials</h2>
-            <p className="text-gray-700 leading-relaxed">
-              The materials appearing on this service could include technical, typographical, or
-              photographic errors. We do not warrant that any of the materials on this service are
-              accurate, complete, or current.
+            <h2>Limitation of Liability</h2>
+            <p>
+              StackVerdicts shall not be liable for any damages arising from your use of this website or
+              reliance on its content. This includes but is not limited to direct, indirect, incidental,
+              or consequential damages.
             </p>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Links</h2>
-            <p className="text-gray-700 leading-relaxed">
-              We have not reviewed all of the sites linked to our service and are not responsible
-              for the contents of any such linked site. The inclusion of any link does not imply
-              endorsement by us of the site. Use of any such linked website is at the user's own risk.
+            <h2>External Links</h2>
+            <p>
+              This website contains links to third-party websites. We are not responsible for the content,
+              privacy practices, or terms of service of external sites. Accessing external links is at your
+              own risk.
             </p>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Modifications</h2>
-            <p className="text-gray-700 leading-relaxed">
-              We may revise these terms of service at any time without notice. By using this service
-              you are agreeing to be bound by the then current version of these terms of service.
+            <h2>Email Subscriptions</h2>
+            <p>
+              By subscribing to our newsletter, you consent to receive periodic emails from us. You may
+              unsubscribe at any time using the link provided in each email.
             </p>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Governing Law</h2>
-            <p className="text-gray-700 leading-relaxed">
-              These terms and conditions are governed by and construed in accordance with applicable
-              laws and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
+            <h2>Changes to Terms</h2>
+            <p>
+              We reserve the right to modify these terms at any time. Continued use of the website after
+              changes constitutes acceptance of the updated terms.
             </p>
-          </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Contact Information</h2>
-            <p className="text-gray-700 leading-relaxed">
-              If you have any questions about these Terms of Service, please contact us at{' '}
-              <a href="/contact" className="text-primary-600 hover:underline">
-                our contact page
-              </a>.
+            <h2>Contact</h2>
+            <p>
+              Questions about these terms? Contact us at{' '}
+              <a href="/contact">our contact page</a>.
             </p>
-          </section>
+          </div>
 
-          <div className="pt-6 border-t">
+          <div className="mt-16 pt-8 border-t border-gray-200">
             <p className="text-sm text-gray-500">
-              Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              Last Updated: December 2024
             </p>
           </div>
         </div>
-      </div>
-    </div>
+      </main>
+
+      <EmailSignup />
+      <Footer />
+    </>
   );
 }

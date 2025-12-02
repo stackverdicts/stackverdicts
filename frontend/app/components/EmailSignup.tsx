@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import AnimatedBackground from './AnimatedBackground';
 
 export default function EmailSignup() {
   const [firstName, setFirstName] = useState('');
@@ -67,13 +68,14 @@ export default function EmailSignup() {
   }
 
   return (
-    <section className="bg-gradient-to-r from-indigo-950 via-purple-900 via-55% to-blue-800 py-16">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-16 overflow-hidden">
+      <AnimatedBackground />
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 uppercase tracking-wide">
             Stay Updated
           </h2>
-          <p className="text-lg text-indigo-100 max-w-2xl mx-auto">
+          <p className="text-lg text-white max-w-2xl mx-auto">
             Get the latest developer tool reviews, hosting comparisons, and tech insights delivered straight to your inbox.
           </p>
         </div>
@@ -86,7 +88,7 @@ export default function EmailSignup() {
               </svg>
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">You're subscribed!</h3>
-            <p className="text-indigo-100">Thanks for joining. Check your inbox for a welcome email.</p>
+            <p className="text-white">Thanks for joining. Check your inbox for a welcome email.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
@@ -109,7 +111,7 @@ export default function EmailSignup() {
                 placeholder="First name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="flex-1 px-4 py-3 bg-white border border-white/20 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all sm:border-r sm:border-r-gray-300"
+                className="flex-1 px-4 py-3 bg-white border border-white/20 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all border-b border-b-gray-300 sm:border-b-white/20 sm:border-r sm:border-r-gray-300"
                 disabled={status === 'loading'}
               />
               <input
@@ -134,7 +136,7 @@ export default function EmailSignup() {
                     <span>Subscribing...</span>
                   </>
                 ) : (
-                  'Subscribe'
+                  <span className="uppercase tracking-wide">Subscribe</span>
                 )}
               </button>
             </div>
@@ -142,10 +144,6 @@ export default function EmailSignup() {
             {status === 'error' && errorMessage && (
               <p className="mt-3 text-red-200 text-sm text-center">{errorMessage}</p>
             )}
-
-            <p className="mt-4 text-sm text-indigo-200 text-center">
-              No spam, ever. Unsubscribe anytime.
-            </p>
           </form>
         )}
       </div>

@@ -107,45 +107,137 @@ router.get('/templates/:id', async (req: Request, res: Response) => {
 });
 
 /**
- * Generate email sequence with AI
- * POST /api/email/sequences/generate
+ * Create email sequence
+ * POST /api/email/sequences
  */
-router.post('/sequences/generate', async (req: Request, res: Response) => {
+router.post('/sequences', async (req: Request, res: Response) => {
   try {
     const {
-      sequenceName,
-      offerName,
-      offerId,
-      purpose,
-      numberOfEmails,
-      daysBetweenEmails,
-      tone,
+      sequence_name,
+      description,
+      trigger_type,
+      status,
+      steps,
     } = req.body;
 
-    if (!sequenceName || !offerName || !purpose || !numberOfEmails) {
+    if (!sequence_name) {
       return res.status(400).json({
-        error: 'sequenceName, offerName, purpose, and numberOfEmails are required',
+        error: 'sequence_name is required',
       });
     }
 
-    const sequence = await emailMarketingService.generateEmailSequence({
-      sequenceName,
-      offerName,
-      offerId,
-      purpose,
-      numberOfEmails: parseInt(numberOfEmails),
-      daysBetweenEmails: parseInt(daysBetweenEmails) || 3,
-      tone,
-    });
+    // Create sequence
+    const sequenceId = crypto.randomUUID();
+    await query(
+      `INSERT INTO email_sequences (id, sequence_name, description, trigger_type, status, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, NOW(), NOW())`,
+      [sequenceId, sequence_name, description || '', trigger_type || 'manual', status || 'draft']
+    );
 
-    res.json({ sequence });
+    // Create steps
+    if (steps && steps.length > 0) {
+      for (const step of steps) {
+        const stepId = crypto.randomUUID();
+        await query(
+          `INSERT INTO email_sequence_steps (id, sequence_id, step_number, step_name, subject_line, html_content, delay_value, delay_unit, created_at, updated_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+          [stepId, sequenceId, step.step_number, step.step_name, step.subject_line, step.html_content || '', step.delay_value || 0, step.delay_unit || 'days']
+        );
+      }
+    }
+
+    const sequence = await queryOne('SELECT * FROM email_sequences WHERE id = ?', [sequenceId]);
+    const createdSteps = await query('SELECT * FROM email_sequence_steps WHERE sequence_id = ? ORDER BY step_number', [sequenceId]);
+
+    res.json({ sequence: { ...sequence, steps: createdSteps } });
   } catch (error) {
-    await logger.error('EmailAPI', 'Failed to generate sequence', {
+    await logger.error('EmailAPI', 'Failed to create sequence', {
       error: error instanceof Error ? error.message : 'Unknown error',
     });
 
     res.status(500).json({
-      error: 'Failed to generate email sequence',
+      error: 'Failed to create email sequence',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+/**
+ * Update email sequence
+ * PUT /api/email/sequences/:id
+ */
+router.put('/sequences/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const {
+      sequence_name,
+      description,
+      trigger_type,
+      status,
+      steps,
+    } = req.body;
+
+    // Update sequence
+    await query(
+      `UPDATE email_sequences SET sequence_name = ?, description = ?, trigger_type = ?, status = ?, updated_at = NOW() WHERE id = ?`,
+      [sequence_name, description || '', trigger_type || 'manual', status || 'draft', id]
+    );
+
+    // Delete existing steps and recreate
+    if (steps) {
+      await query('DELETE FROM email_sequence_steps WHERE sequence_id = ?', [id]);
+
+      for (const step of steps) {
+        const stepId = step.id && !step.id.includes('-') ? step.id : crypto.randomUUID();
+        await query(
+          `INSERT INTO email_sequence_steps (id, sequence_id, step_number, step_name, subject_line, html_content, delay_value, delay_unit, created_at, updated_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+          [stepId, id, step.step_number, step.step_name, step.subject_line, step.html_content || '', step.delay_value || 0, step.delay_unit || 'days']
+        );
+      }
+    }
+
+    const sequence = await queryOne('SELECT * FROM email_sequences WHERE id = ?', [id]);
+    const updatedSteps = await query('SELECT * FROM email_sequence_steps WHERE sequence_id = ? ORDER BY step_number', [id]);
+
+    res.json({ sequence: { ...sequence, steps: updatedSteps } });
+  } catch (error) {
+    await logger.error('EmailAPI', 'Failed to update sequence', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+
+    res.status(500).json({
+      error: 'Failed to update email sequence',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+/**
+ * Delete email sequence
+ * DELETE /api/email/sequences/:id
+ */
+router.delete('/sequences/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    // Delete steps first
+    await query('DELETE FROM email_sequence_steps WHERE sequence_id = ?', [id]);
+
+    // Delete enrollments
+    await query('DELETE FROM email_sequence_enrollments WHERE sequence_id = ?', [id]);
+
+    // Delete sequence
+    await query('DELETE FROM email_sequences WHERE id = ?', [id]);
+
+    res.json({ message: 'Sequence deleted successfully' });
+  } catch (error) {
+    await logger.error('EmailAPI', 'Failed to delete sequence', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+
+    res.status(500).json({
+      error: 'Failed to delete email sequence',
       message: error instanceof Error ? error.message : 'Unknown error',
     });
   }
